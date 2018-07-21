@@ -1,0 +1,36 @@
+<h3>{{title}} - {{displayQuery}}</h3>
+<input name="query" placeholder="Enter Search Here" [(ngModel)]="searchQuery"/>
+<button (click)="sendQuery()" >Submit</button>
+<div *ngIf="searchResults;">
+  <div *ngIf="searchResults.total_count === 0;">
+    <p>There is no repositories found</p>
+  </div>
+  <h3 class = "total">Total Results: {{searchResults.total_count}}</h3>
+  <ul class = "list">
+    <li [ngClass]="{'list_item1': (i % 2 === 0), 'list_item2': (i % 2 !== 0)}" *ngFor="let result of searchResults.items; index as i">
+    <!--<li [ngStyle]="{'background-color' : (i % 2 === 0) ? 'silver' : 'white'}" class = "list_item" *ngFor="let result of searchResults.items; index as i">-->
+      <a [href]="result.html_url">
+        <img class = "avatar" [src]="result.owner.avatar_url" />
+        <h4 class = "tittle">{{result.name}}
+          <small> by {{result.owner.login | uppercase}}</small>
+        </h4>
+      </a>
+      <p class = "description"> {{result.description}}</p>
+      <p> Created On: {{result.created_at| date:'fullDate'}} </p>
+    </li>
+  </ul>
+  <div *ngIf="searchPage > 1;">
+    <a [routerLink] ="['/search', searchQuery,searchPage-1]" routerLinkActive="active">
+      <button>prev</button>
+    </a>
+    <a [routerLink] ="['/search', searchQuery, searchPage+1]" routerLinkActive="active">
+      <button>Next</button>
+    </a>
+  </div>
+  <div *ngIf="searchPage == 1;">
+    <a [routerLink]="['/search', searchQuery, searchPage+1]" routerLinkActive="active">
+      <button>Next</button>
+    </a>
+  </div>
+</div>
+<ng-template #elseBlock>Loading...</ng-template>

@@ -1,0 +1,30 @@
+<h6 class="center-align">
+  Employee List
+</h6>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Position</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor = "let employee of employeeList">
+      <td>{{employee.name}}</td>
+      <td>{{employee.position}}</td>
+      <td>
+        <a class="btn">
+          <i class="material-icons right" (click) = "onEdit(employee)">edit</i>          
+        </a>
+      </td>
+      <td>
+        <a class="btn">
+          <i class="material-icons right " (click) = "onDelete(employee)">delete</i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
